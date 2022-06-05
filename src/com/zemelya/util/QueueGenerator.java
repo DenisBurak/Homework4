@@ -29,6 +29,13 @@ public class QueueGenerator implements Runnable {
                 Client client = Generators.generateClient();
                 queue.put(client);
                 System.out.println("Клиент " + client.getId() + " в ожидании ответа.");
+
+                try{
+                    Thread.sleep(200);
+                }
+                catch (InterruptedException ex){
+                    System.out.println("Client Write INTERRUPTED");
+                }
             }
         } catch (InterruptedException ex) {
             System.out.println("CLIENT INTERRUPTED");

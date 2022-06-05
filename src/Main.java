@@ -2,21 +2,18 @@ import com.zemelya.domain.Client;
 import com.zemelya.domain.Operator;
 import com.zemelya.util.QueueGenerator;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 public class Main {
   public static void main(String[] args) {
 
     int numClients = 20;
-    int numOperators = 5;
+    int numOperators = 3;
 
     ExecutorService executorClient = Executors.newFixedThreadPool(1);
     ExecutorService executorOperators = Executors.newFixedThreadPool(numOperators);
 
-    BlockingQueue<Client> queue = new LinkedBlockingQueue<>(20);
+    BlockingQueue<Client> queue = new PriorityBlockingQueue<>(10);
     QueueGenerator queueGenerator = new QueueGenerator(queue, numClients);
 
     System.out.println("Колл - центр начал работу");

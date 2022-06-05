@@ -3,7 +3,7 @@ package com.zemelya.domain;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Client{
+public class Client implements Comparable<Client>{
 
     private static final AtomicInteger COUNTER = new AtomicInteger(1);
     private int id;
@@ -31,4 +31,8 @@ public class Client{
         this.priority = priority;
     }
 
+    @Override
+    public int compareTo(Client o) {
+        return Integer.valueOf(o.getPriority()).compareTo(this.getPriority());
+    }
 }
