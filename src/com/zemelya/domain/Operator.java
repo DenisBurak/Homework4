@@ -1,9 +1,7 @@
 package com.zemelya.domain;
 
-import java.lang.ref.Cleaner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Operator implements Runnable {
