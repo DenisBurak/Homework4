@@ -19,6 +19,10 @@ public class Client{
         return id;
     }
 
+    public static AtomicInteger getCOUNTER() {
+        return COUNTER;
+    }
+
     public int getPriority() {
         return priority;
     }

@@ -2,9 +2,6 @@ package com.zemelya.util;
 
 import com.zemelya.domain.Client;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-
 public class Generators {
 
   public static Client generateClient(){

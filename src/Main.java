@@ -1,18 +1,40 @@
+import com.zemelya.domain.Client;
+import com.zemelya.domain.Operator;
+import com.zemelya.util.QueueGenerator;
+
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
   public static void main(String[] args) {
 
-    int numClients = 100;
+    int numClients = 20;
     int numOperators = 5;
-    ExecutorService executor = Executors.newFixedThreadPool(numOperators);
+
+    ExecutorService executorClient = Executors.newFixedThreadPool(1);
+    ExecutorService executorOperators = Executors.newFixedThreadPool(numOperators);
+
+    BlockingQueue<Client> queue = new LinkedBlockingQueue<>(20);
+    QueueGenerator queueGenerator = new QueueGenerator(queue, numClients);
 
     System.out.println("Колл - центр начал работу");
 
+    executorClient.submit(new Thread(queueGenerator));
 
+    for (int i = 0; i < numOperators; i++) {
+      executorOperators.submit(new Thread(new Operator(queue)));
+    }
 
-    System.out.println("Колл - центр закончил работу");
+    executorClient.shutdown();
+    executorOperators.shutdown();
 
+    while (true) {
+      if (executorOperators.isTerminated()) {
+        System.out.println("Колл - центр закончил работу");
+        break;
+      }
+    }
   }
 }
